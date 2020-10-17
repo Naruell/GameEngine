@@ -1,3 +1,5 @@
+// Todo : solve LogLevel associated issues (hard coding)
+
 #pragma once
 #include <string>
 #include <fstream>
@@ -23,6 +25,7 @@ public:
     void LogEvent(const std::string& message) { Log(LogLevel::Event, message); };
     void LogWarning(const std::string& message) { Log(LogLevel::Warning, message); };
     void LogError(const std::string& message) { Log(LogLevel::Error, message); };
+    void LogLogCount();
 
 private:
     void Log(LogLevel, const std::string&);

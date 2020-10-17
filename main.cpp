@@ -11,11 +11,12 @@ int main()
     Engine::Instance().Update();
     Engine::GetLogger().LogDebug("Tick for \"Hi\" : " + std::to_string(Engine::GetTimer().GetDeltaTick("Hi")));
 
-    while(true)
+    while(Engine::GetTimer().GetElapsedTime() <= 10)
     {
         Engine::Instance().Update();
     }
 
+    Engine::GetLogger().LogLogCount();
     Engine::Instance().Shutdown();
     return 0;
 }

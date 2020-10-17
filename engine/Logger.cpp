@@ -6,6 +6,17 @@ Logger::Logger() : Logger(Logger::LogLevel::Trace, true) {}
 Logger::Logger(Logger::LogLevel minLevel, bool isUsingConsole)
     : mOutStream("Log.txt"), mMinLevel(minLevel), mIsUsingConsole(isUsingConsole), mLogIndex(0) {}
 
+void Logger::LogLogCount()
+{
+    std::string logCountInfo = "";
+    logCountInfo += "Trace[" + std::to_string(mLogCount[static_cast<int>(LogLevel::Trace)]) + "], ";
+    logCountInfo += "Debug[" + std::to_string(mLogCount[static_cast<int>(LogLevel::Debug)]) + "], ";
+    logCountInfo += "Event[" + std::to_string(mLogCount[static_cast<int>(LogLevel::Event)]) + "], ";
+    logCountInfo += "Warning[" + std::to_string(mLogCount[static_cast<int>(LogLevel::Warning)]) + "], ";
+    logCountInfo += "Error[" + std::to_string(mLogCount[static_cast<int>(LogLevel::Error)]) + ']';
+    Log(LogLevel::Debug, logCountInfo);
+}
+
 void Logger::Log(Logger::LogLevel logLevel, const std::string& message)
 {
     LogStream(mOutStream, logLevel, message);
