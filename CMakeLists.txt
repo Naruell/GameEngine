@@ -18,6 +18,8 @@ set( ENGINE_CODE
         ${ENGINE_CODE_DIR}/Timer.cpp
         )
 
-set( GAME_CODE engine/Logger.h)
+set( GAME_CODE )
+
+add_subdirectory( test )
 
 add_executable( Untitled main.cpp ${ENGINE_CODE} ${GAME_CODE} )

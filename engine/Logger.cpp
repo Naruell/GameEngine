@@ -6,7 +6,7 @@ Logger::Logger() : Logger(Logger::LogLevel::Trace, true) {}
 Logger::Logger(Logger::LogLevel minLevel, bool isUsingConsole)
     : mOutStream("Log.txt"), mMinLevel(minLevel), mIsUsingConsole(isUsingConsole), mLogIndex(0) {}
 
-void Logger::LogLogCount()
+void Logger::PrintLogCount()
 {
     std::string logCountInfo = "";
     logCountInfo += "Trace[" + std::to_string(mLogCount[static_cast<int>(LogLevel::Trace)]) + "], ";
@@ -28,7 +28,7 @@ void Logger::Log(Logger::LogLevel logLevel, const std::string& message)
     mLogIndex++;
 }
 
-void Logger::LogStream(std::ostream& outStream, Logger::LogLevel logLevel, const std::string& message)
+void Logger::LogStream(std::ostream& outStream, Logger::LogLevel logLevel, const std::string& message) const
 {
     if(logLevel >= mMinLevel)
     {

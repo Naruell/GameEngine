@@ -1,4 +1,5 @@
 #include "Timer.h"
+#include "Engine.h"
 
 void Timer::Init()
 {
@@ -20,12 +21,29 @@ void Timer::RegisterTick(const std::string& tickName)
 
 void Timer::UpdateTick(const std::string& tickName)
 {
-    mTicks.find(tickName)->second = std::chrono::system_clock::now();
+    auto itr = mTicks.find(tickName);
+    if(itr == mTicks.end())
+    {
+        Engine::GetLogger().LogError("Error in Timer::UpdateTick() : Couldn't find pair from the key \"" + tickName + "\'.");
+    }
+    else
+    {
+        itr->second = std::chrono::system_clock::now();
+    }
 }
 
 double Timer::GetDeltaTick(const std::string& tickName) const
 {
-    return std::chrono::duration<double>(mLastTick - mTicks.find(tickName)->second).count();
+    auto itr = mTicks.find(tickName);
+    if(itr == mTicks.end())
+    {
+        Engine::GetLogger().LogError("Error in Timer::GetDeltaTick() : Couldn't find pair from the key \"" + tickName + "\'.");
+        return 0;
+    }
+    else
+    {
+        return std::chrono::duration<double>(mLastTick - itr->second).count();
+    }
 }
 
 double Timer::GetDeltaTime() const noexcept

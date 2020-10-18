@@ -13,17 +13,17 @@ public:
     void Init();
     void Update();
 
-    void RegisterTick(const std::string&);
-    void UpdateTick(const std::string&);
+    void                 RegisterTick(const std::string&);
+    void                 UpdateTick(const std::string&);
     [[nodiscard]] double GetDeltaTick(const std::string&) const;
 
     [[nodiscard]] double GetDeltaTime() const noexcept;
     [[nodiscard]] double GetElapsedTime() const noexcept;
 
 private:
-    std::chrono::system_clock::time_point mLastTick;
+    std::chrono::system_clock::time_point                                  mLastTick;
     std::unordered_map<std::string, std::chrono::system_clock::time_point> mTicks;
 
-    double mDeltaTime = 0;
-    double mElapsedTime = 0;
+    double mDeltaTime = 0.0;
+    double mElapsedTime = 0.0;
 };
