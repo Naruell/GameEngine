@@ -24,7 +24,7 @@ void Timer::UpdateTick(const std::string& tickName)
     auto itr = mTicks.find(tickName);
     if(itr == mTicks.end())
     {
-        Engine::GetLogger().LogError("Error in Timer::UpdateTick() : Couldn't find pair from the key \"" + tickName + "\'.");
+        Engine::GetLogger().LogError("Error in Timer::UpdateTick() : Couldn't find pair from the key \"" + tickName + "\".");
     }
     else
     {
@@ -37,7 +37,7 @@ double Timer::GetDeltaTick(const std::string& tickName) const
     auto itr = mTicks.find(tickName);
     if(itr == mTicks.end())
     {
-        Engine::GetLogger().LogError("Error in Timer::GetDeltaTick() : Couldn't find pair from the key \"" + tickName + "\'.");
+        Engine::GetLogger().LogError("Error in Timer::GetDeltaTick() : Couldn't find pair from the key \"" + tickName + "\".");
         return 0;
     }
     else

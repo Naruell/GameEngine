@@ -2,6 +2,12 @@
 
 void Engine::Init()
 {
+    if(mIsInited)
+    {
+        mLogger.LogError("Error in Engine::Init() : Engine already has been initialized.");
+        return;
+    }
+
     mLogger.LogEvent("Engine Init");
     mTimer.Init();
 
@@ -9,6 +15,8 @@ void Engine::Init()
     mTimer.RegisterTick(mEngineUpdateTick);
 
     // Init Code here
+
+    mIsInited = true;
 }
 
 void Engine::Update()

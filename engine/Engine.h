@@ -1,3 +1,6 @@
+// Todo : prevent the case that user tries to call Engine instance before it is initialized
+// Cur  : Added mIsInited flag variable.
+
 #pragma once
 #include <string>
 
@@ -26,6 +29,8 @@ private:
     Logger mLogger;
 
 private:
+    bool mIsInited = false;
+
     // FPS, delta time
     double            mTargetFPS = 30.0; // 0 for infinite frame lock
     const std::string mEngineUpdateTick = "EngineUpdateTick";
