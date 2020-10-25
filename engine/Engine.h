@@ -6,6 +6,7 @@
 
 #include "Timer.h"
 #include "Logger.h"
+#include "Loader.h"
 
 class Engine
 {
@@ -13,6 +14,7 @@ public:
     static Engine& Instance() { static Engine instance; return instance; }
     static Timer&  GetTimer() { return Instance().mTimer; }
     static Logger& GetLogger() { return Instance().mLogger; }
+    static Loader& GetLoader() { return Instance().mLoader; }
 
     void Init();
     void Update();
@@ -27,6 +29,7 @@ private:
 
     Timer  mTimer;
     Logger mLogger;
+    Loader mLoader;
 
 private:
     bool mIsInited = false;

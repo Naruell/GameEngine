@@ -16,6 +16,8 @@ set( ENGINE_CODE
         ${ENGINE_CODE_DIR}/Logger.cpp
         ${ENGINE_CODE_DIR}/Timer.h
         ${ENGINE_CODE_DIR}/Timer.cpp
+        ${ENGINE_CODE_DIR}/Loader.h
+        ${ENGINE_CODE_DIR}/Loader.cpp
         )
 
 set( GAME_CODE )
