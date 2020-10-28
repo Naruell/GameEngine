@@ -3,6 +3,11 @@ project( Untitled )
 
 set( CMAKE_CXX_STANDARD 17 )
 
+# jsoncpp #
+include_directories( lib/dist/json )
+set( JSON_CODE lib/dist/json/json.h lib/dist/json/json-forwards.h lib/dist/jsoncpp.cpp )
+
+# Engine #
 set( ENGINE_CODE_DIR ${PROJECT_SOURCE_DIR}/engine )
 set( GAME_CODE_DIR ${PROJECT_SOURCE_DIR}/game )
 
@@ -24,4 +29,4 @@ set( GAME_CODE )
 
 add_subdirectory( test )
 
-add_executable( Untitled main.cpp ${ENGINE_CODE} ${GAME_CODE} )
+add_executable( Untitled main.cpp ${ENGINE_CODE} ${JSON_CODE} ${GAME_CODE} )
