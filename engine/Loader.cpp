@@ -1,5 +1,8 @@
+#include <fstream>
 #include "Loader.h"
 #include "Engine.h"
+
+#include "json.h"
 
 std::string Loader::Encrypt(const std::string &JSONString) const
 {
@@ -7,7 +10,7 @@ std::string Loader::Encrypt(const std::string &JSONString) const
     {
         if(mDecryptionFunc == nullptr)
         {
-            Engine::GetLogger().LogError("Error in Loader::Encrypt() : You didn't register decryption function. Encryption and Decryption might be different.");
+            Engine::GetLogger().LogWarning("Warning in Loader::Encrypt() : You didn't register decryption function. Encryption and Decryption might be different.");
         }
 
         return mEncryptionFunc(JSONString);
@@ -32,7 +35,7 @@ std::string Loader::Decrypt(const std::string &cipherString) const
     {
         if(mEncryptionFunc == nullptr)
         {
-            Engine::GetLogger().LogError("Error in Loader::Decrypt() : You didn't register encryption function. Encryption and Decryption might be different.");
+            Engine::GetLogger().LogWarning("Warning in Loader::Decrypt() : You didn't register encryption function. Encryption and Decryption might be different.");
         }
 
         return mDecryptionFunc(cipherString);
@@ -61,3 +64,74 @@ void Loader::RegisterDecryptionFunc(std::string (*decryptionFunc)(const std::str
     mDecryptionFunc = decryptionFunc;
 }
 
+std::string Loader::LoadStringFromFile(const std::string& filePath, Mode loadMode) const
+{
+    if(filePath.empty())
+    {
+        Engine::GetLogger().LogError("Error in Loader::LoadStringFromFile() : File path empty.");
+        return "";
+    }
+
+    std::ifstream fileCheckStream(filePath, std::ios::binary | std::ios::ate);
+    if(!fileCheckStream)
+    {
+        Engine::GetLogger().LogError("Error in Loader::LoadStringFromFile() : Cannot open file \"" + filePath + "\".");
+        return "";
+    }
+
+    size_t fileSize = fileCheckStream.tellg();
+    std::string fileData;
+    fileData.resize(fileSize);
+    fileCheckStream.close();
+
+    std::ifstream fileReadStream(filePath);
+    fileReadStream >> fileData;
+    switch (loadMode)
+    {
+        case Mode::Default:
+            break;
+
+        case Mode::Encrypt:
+            fileData = Encrypt(fileData);
+            break;
+
+        case Mode::Decrypt:
+            fileData = Decrypt(fileData);
+            break;
+    }
+    fileReadStream.close();
+
+    return fileData;
+}
+
+void Loader::SaveStringToFile(const std::string& filePath, const std::string& data, Loader::Mode saveMode) const
+{
+    if(filePath.empty())
+    {
+        Engine::GetLogger().LogError("Error in Loader::SaveStringToFile() : File path empty.");
+        return;
+    }
+
+    std::ofstream fileWriteStream(filePath);
+    if(!fileWriteStream)
+    {
+        Engine::GetLogger().LogError("Error in Loader::SaveStringToFile() : Cannot open file \"" + filePath + "\".");
+        return;
+    }
+
+    std::string saveData = data;
+    switch (saveMode)
+    {
+        case Mode::Default:
+            break;
+
+        case Mode::Encrypt:
+            saveData = Encrypt(saveData);
+            break;
+
+        case Mode::Decrypt:
+            saveData = Decrypt(saveData);
+            break;
+    }
+    fileWriteStream << saveData;
+}
