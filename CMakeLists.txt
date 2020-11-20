@@ -45,6 +45,8 @@ include_directories( ${GAME_CODE_DIR} )
 set( GAME_CODE
         ${GAME_CODE_DIR}/MapEditor.h
         ${GAME_CODE_DIR}/MapEditor.cpp
+        ${GAME_CODE_DIR}/AI.h
+        ${GAME_CODE_DIR}/AI.cpp
         )
 
 # Subdirectory #
