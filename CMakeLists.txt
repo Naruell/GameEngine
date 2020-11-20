@@ -38,6 +38,12 @@ set( ENGINE_CODE
         ${ENGINE_CODE_DIR}/DataType.cpp
         )
 
+# Game #
+set( GAME_CODE_DIR ${PROJECT_SOURCE_DIR}/game )
+include_directories( ${GAME_CODE_DIR} )
+
+set( GAME_CODE
+        )
 
 # Subdirectory #
 add_subdirectory( test )
