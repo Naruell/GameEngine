@@ -38,7 +38,6 @@ set( ENGINE_CODE
         ${ENGINE_CODE_DIR}/DataType.cpp
         )
 
-set( GAME_CODE )
 
 # Subdirectory #
 add_subdirectory( test )
