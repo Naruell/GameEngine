@@ -43,6 +43,8 @@ set( GAME_CODE_DIR ${PROJECT_SOURCE_DIR}/game )
 include_directories( ${GAME_CODE_DIR} )
 
 set( GAME_CODE
+        ${GAME_CODE_DIR}/MapEditor.h
+        ${GAME_CODE_DIR}/MapEditor.cpp
         )
 
 # Subdirectory #
