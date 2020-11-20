@@ -23,6 +23,9 @@ set( ENGINE_CODE
         ${ENGINE_CODE_DIR}/Timer.cpp
         ${ENGINE_CODE_DIR}/Loader.h
         ${ENGINE_CODE_DIR}/Loader.cpp
+        ${ENGINE_CODE_DIR}/DataType.h
+        ${ENGINE_CODE_DIR}/DataType.inl
+        ${ENGINE_CODE_DIR}/DataType.cpp
         )
 
 set( GAME_CODE )
