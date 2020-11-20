@@ -6,6 +6,7 @@
 
 #include "Timer.h"
 #include "Logger.h"
+#include "GameState.h"
 #include "Loader.h"
 
 class Engine
