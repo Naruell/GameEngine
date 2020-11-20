@@ -1,10 +1,9 @@
 #include <fstream>
+#include <sstream>
 #include "Loader.h"
 #include "Engine.h"
 
-#include "json.h"
-
-std::string Loader::Encrypt(const std::string &JSONString) const
+std::string Loader::Encrypt(const std::string &String) const
 {
     if(mEncryptionFunc != nullptr)
     {
@@ -13,15 +12,15 @@ std::string Loader::Encrypt(const std::string &JSONString) const
             Engine::GetLogger().LogWarning("Warning in Loader::Encrypt() : You didn't register decryption function. Encryption and Decryption might be different.");
         }
 
-        return mEncryptionFunc(JSONString);
+        return mEncryptionFunc(String);
     }
 
     srand(mRandSeed);
 
     std::string encryptedStr;
-    encryptedStr.reserve(JSONString.length());
+    encryptedStr.reserve(String.length());
 
-    for(char c : JSONString)
+    for(char c : String)
     {
         encryptedStr += static_cast<char>(static_cast<int>(c) + rand() % mRandRange);
     }
@@ -85,7 +84,11 @@ std::string Loader::LoadStringFromFile(const std::string& filePath, Mode loadMod
     fileCheckStream.close();
 
     std::ifstream fileReadStream(filePath);
-    fileReadStream >> fileData;
+    std::stringstream stringStream;
+
+    stringStream << fileReadStream.rdbuf();
+    fileData = stringStream.str();
+
     switch (loadMode)
     {
         case Mode::Default:

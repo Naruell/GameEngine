@@ -8,7 +8,7 @@ Logger::Logger(Logger::LogLevel minLevel, bool isUsingConsole)
 
 void Logger::PrintLogCount()
 {
-    std::string logCountInfo = "";
+    std::string logCountInfo;
     logCountInfo += "Trace[" + std::to_string(mLogCount[static_cast<int>(LogLevel::Trace)]) + "], ";
     logCountInfo += "Debug[" + std::to_string(mLogCount[static_cast<int>(LogLevel::Debug)]) + "], ";
     logCountInfo += "Event[" + std::to_string(mLogCount[static_cast<int>(LogLevel::Event)]) + "], ";
